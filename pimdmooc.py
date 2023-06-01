@@ -52,6 +52,8 @@ def read_ipi_output(filename):
     columns = {}
     raw = np.loadtxt(filename)
     for i, c in enumerate(fields):
+        while c in columns:
+            c = c + "+"
         columns[c] = raw[:,cols[i]].T
         if columns[c].shape[0] == 1:
             columns[c].shape = columns[c].shape[1]
