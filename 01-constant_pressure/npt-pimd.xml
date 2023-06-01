@@ -1,6 +1,6 @@
 <simulation verbosity='medium'>
-  <output prefix='ph2-npt-md'>
-    <properties filename='md' stride='10'> [step, time{picosecond}, conserved{electronvolt}, temperature{kelvin}, potential{electronvolt}, kinetic_md{electronvolt}, pressure_md{megapascal}, volume{angstrom3}] </properties>
+  <output prefix='ph2-npt-pimd'>
+    <properties filename='md' stride='10'> [step, time{picosecond}, conserved{electronvolt}, temperature{kelvin}, potential{electronvolt}, kinetic_cv{electronvolt}, pressure_cv{megapascal}, volume{angstrom3}] </properties>
     <trajectory filename='pos' stride='100' format='pdb' cell_units='angstrom'> positions{angstrom} </trajectory>
     <checkpoint filename='checkpoint' stride='1000' overwrite='True'/>
   </output>
@@ -9,7 +9,7 @@
     <address> ph2-driver</address>
   </ffsocket>
   <system>
-    <initialize nbeads='1'>
+    <initialize nbeads='4'>
       <file mode='pdb'> para-h2.pdb </file>
       <velocities mode='thermal' units='kelvin'> 25 </velocities>
     </initialize>
