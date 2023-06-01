@@ -1,0 +1,21 @@
+
+We are ready to start. Reading RESTART ... (This can take a while)
+
+Temperature: 300.0 K
+NBEADS: 160
+atoms:  6
+ASR:    poly
+1/(betaP*hbar) =  0.15201
+Diagonalization ... 
+
+
+Final lowest 10 frequencies (cm^-1)
+[-1606.56 8.90 515.86 515.86 594.77 1007.47 1007.47 1155.57 1308.31 1308.31]
+Deleted frequency:    8.899 cm^-1
+
+We are done. Instanton rate. Nbeads 160 (diff only 80.0)
+   BN       (BN*N)    | Qt(bohr^-3) | Qrot        | log(Qvib*N) | S/hbar   ( S1/hbar ,S2/hbar  ) |
+  14.280 ( 2284.797 ) |      10.188 |    1251.027 |     -43.477 |   25.026 (   23.940    1.085 ) |
+
+
+

@@ -1,0 +1,22 @@
+
+We are ready to start. Reading RESTART ... (This can take a while)
+
+Temperature: 300.0 K
+NBEADS: 1
+atoms:  6
+ASR:    poly
+1/(betaP*hbar) =  0.00095
+Diagonalization ... 
+
+
+Final lowest 10 frequencies (cm^-1)
+[-1486.88 541.88 541.88 1084.08 1084.12 1182.14 1441.55 1441.56 1831.15 3034.04]
+
+We are done. TS
+Partition functions at 300.0 K
+
+Qtras: 10.187982156996487
+Qrot: 1206.1509707160856
+logQvib: -44.278384526597534
+Potential energy at TS:  0.6505827617083372 eV, V/kBT 25.165638546469864
+
