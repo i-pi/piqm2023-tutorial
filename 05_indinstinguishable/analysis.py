@@ -1,20 +1,6 @@
 import re
-import sys
-
 import numpy as np
-import statistics
-import argparse
-import pathlib
-import itertools
 
-#import harmonic_analytical
-
-T = 17.8  # Kelvin
-nparticles = 3
-
-dim = 3  # Dimension of the physical system
-spring_constant = 1.21647924E-8  # Spring constant
-mass = 1.0  # Mass of the particle
 
 # Functions for evaluating the mean energy for the harmonic potential, analytically
 def getZk(k, bhw, dim):
@@ -79,50 +65,49 @@ def read_ipi_output(filename):
     return columns
 
 
-def analyze_mean_energy(infile):
-    o = read_ipi_output(infile)
-    num_points_to_drop = 100
-    avg_kinetic = -statistics.mean(o['virial_fq'][num_points_to_drop:])
-    avg_potential = statistics.mean(o['potential'][num_points_to_drop:])
-    return avg_kinetic + avg_potential
+def get_mean_energies(filename, skip_steps=100):
+    o = read_ipi_output(filename + "data.out")
+    avg_kinetic = -o['virial_fq'][skip_steps:]
+    avg_kinetic_cv = o['kinetic_cv'][skip_steps:]
+    avg_potential = o['potential'][skip_steps:]
+    return {
+        'virial': avg_kinetic,
+        'centroid_virial': avg_kinetic_cv,
+        'potential': avg_potential
+    }
 
 
-def harmonic_analytical_energy(nparticles, temp, bosonic=True):
+def analytical_energy(temp=17.4, sys_type='dist'):
+    dim = 3  # Dimension of the physical system
+    spring_constant = 1.21647924E-8  # Spring constant
+    mass = 1.0  # Mass of the particle
+
     # hbar and the Boltzmann constant are assumed to be 1
-
+    hbar = 1
+    kB = 1
     omega = np.sqrt(spring_constant / mass)
 
     # See units.py of i-pi for conversion to atomic units
-    beta = (1 / (temp * 3.1668152e-06))
+    beta = (1 / (kB * temp * 3.1668152e-06))
 
-    bhw = beta * omega
+    bhw = hbar * beta * omega
 
-    return get_harmonic_energy(nparticles, bhw, dim, bosonic)
+    if sys_type == 'bosonic':
+        return get_harmonic_energy(3, bhw, dim, True) * hbar * omega
+    elif sys_type == 'mixed':
+        return (get_harmonic_energy(2, bhw, dim, True) + get_harmonic_energy(1, bhw, dim, False)) * hbar * omega
+    elif sys_type == 'fermionic':
+        # Analytical result for three fermions in a 2D harmonic trap (NVT)
+        exp = np.exp(bhw)
+        exp2 = np.exp(2 * bhw)
+        exp3 = np.exp(3 * bhw)
+        exp4 = np.exp(4 * bhw)
+        exp5 = np.exp(5 * bhw)
+        exp6 = np.exp(6 * bhw)
+        num =  5 * exp6 + 31 * exp5 + 47 * exp4 + 50 * exp3 + 47 * exp2 + 31 * exp + 5
+        denom = (exp - 1) * (exp + 1) * (exp2 + exp + 1) * (exp2 + 4 * exp + 1)
 
+        return hbar * omega * num / denom
 
-def get_average_energy(infiles, particles, temp):
-    avg_energy = analyze_mean_energy(infiles[0])
-    analytical_energy = harmonic_analytical_energy(particles, temp)
-
-    print("Avg energy:", avg_energy)
-    print("Analytical:", analytical_energy)
-    return avg_energy
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Analyze i-Pi simulation results')
-
-    parser.add_argument('infile', type=str, nargs='*', help='Path to i-Pi data.out output file')
-    parser.add_argument('-t', type=float, nargs=1, help='Temperature (in kelvin)')
-
-    # Think about how to deal with case of mixed particles and/or fermions
-    parser.add_argument('-n', type=int, nargs=1, help='Number of particles')
-
-    args = parser.parse_args()
-
-    # analyze_mean_energy(args.infile[0])
-    get_average_energy(args.infile, args.n[0], args.t[0])
-
-
-if __name__ == "__main__":
-    main()
+    # Unless specified otherwise, assume distinguishable particles.
+    return get_harmonic_energy(3, bhw, dim, False) * hbar * omega
