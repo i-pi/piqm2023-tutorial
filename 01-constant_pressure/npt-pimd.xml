@@ -6,7 +6,7 @@
   </output>
   <total_steps> 5000 </total_steps>
   <ffsocket mode='unix' name='ph2-ff'>
-    <address> ph2-driver</address>
+    <address> ph2-driver-pi </address>
   </ffsocket>
   <system>
     <initialize nbeads='4'>

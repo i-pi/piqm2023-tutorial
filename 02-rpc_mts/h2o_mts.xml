@@ -6,10 +6,10 @@
   </output>
   <total_steps> 2500 </total_steps>
   <ffsocket mode='unix' name='qtip4pf' pbc='false'>
-      <address>qtip4pf-full</address>
+      <address>qtip4pf-mts-full</address>
   </ffsocket>
   <ffsocket mode='unix' name='qtip4pf-sr' pbc='false'>
-      <address>qtip4pf-sr</address>
+      <address>qtip4pf-mts-sr</address>
   </ffsocket>
   <system>
     <initialize nbeads='1'>
@@ -18,10 +18,10 @@
     </initialize>
     <forces>
       <force forcefield='qtip4pf'>
-              <mts_weights>[1,0]</mts_weights>
+        <mts_weights>[1,0]</mts_weights>
       </force>
       <force forcefield='qtip4pf-sr'>
-              <mts_weights>[-1,1]</mts_weights>
+        <mts_weights>[-1,1]</mts_weights>
       </force>
     </forces>
     <ensemble>
