@@ -1,0 +1,42 @@
+<simulation verbosity='low'>
+   <output prefix='simulation'>
+      <properties filename='out' stride='10' flush='10'> [ step, time{picosecond}, conserved, temperature{kelvin}, kinetic_cv, potential, pressure_cv, volume, ensemble_temperature ] </properties>
+      <properties filename='pots' stride='10' flush='10'> [ pot_component_raw(0), pot_component_raw(1) ] </properties>
+      <trajectory filename='pos1' stride='10' bead='0' flush='10'> positions </trajectory>
+      <trajectory filename='xc' stride='10' flush='10'> x_centroid </trajectory>
+      <checkpoint stride='4000'/>
+   </output>
+   <total_steps> 10000 </total_steps>
+   <prng><seed>31415</seed></prng>
+   <ffsocket name='driver' mode='unix' matching='any' pbc='false'>
+       <address> f0 </address>
+       <latency> 1e-3 </latency> 
+   </ffsocket>
+   <ffdebye name='debye'>
+	   <hessian shape='(3,3)' mode='file'> ../hessian.data </hessian>
+	   <x_reference mode='file'> ../ref.data </x_reference>
+	   <v_reference> -9.49995861e-03  </v_reference>
+   </ffdebye>
+   <system>
+      <initialize nbeads='1'>
+	 <file mode='xyz'> ../init.xyz </file>
+         <velocities mode='thermal' units='kelvin'> 300 </velocities>
+      </initialize>
+      <forces>
+         <force forcefield='debye' weight='1.0'> </force>
+         <force forcefield='driver' weight='0.0'> </force>
+      </forces> 
+      <motion mode='dynamics'>
+	 <fixcom> False </fixcom>
+         <dynamics mode='nvt'>
+            <timestep units='femtosecond'> 1.00 </timestep>
+            <thermostat mode='pile_l'>
+                <tau units='femtosecond'> 100 </tau>
+            </thermostat>
+         </dynamics>
+      </motion>
+      <ensemble>
+         <temperature units='kelvin'> 300 </temperature>
+      </ensemble>
+   </system>
+</simulation>
