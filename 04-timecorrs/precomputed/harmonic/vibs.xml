@@ -12,7 +12,7 @@
   </ffsocket>
   <system>
     <initialize nbeads='1'>
-      <file mode='xyz'> init.xyz </file>
+      <file mode='chk'> final_state_of_geop.chk </file>
     </initialize>
     <forces>
       <force forcefield='driver'> </force>
