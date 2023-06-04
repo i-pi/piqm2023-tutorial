@@ -53,14 +53,6 @@ import ase, ase.io
 import chemiscope
 ```
 
-You can check for successful installation by running the following snippet on python.
-```py
-import numpy as np
-import matplotlib.pyplot as plt
-import ase, ase.io
-import chemiscope
-```
-
 Step 5: For the free energy tutorial you will also need plumed2 (version 2.5 is compatible with i-PI). You can follow these instructions.
 
 ```sh
