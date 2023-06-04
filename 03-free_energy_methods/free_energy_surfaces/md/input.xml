@@ -1,0 +1,35 @@
+<simulation verbosity='low'>
+   <output prefix='simulation'>
+      <properties stride='10' filename='out' flush='10'>  [ step, time{picosecond}, conserved, temperature{kelvin}, kinetic_cv, potential, pressure_cv, volume, ensemble_temperature ] </properties>
+      <trajectory filename='pos1' stride='10' bead='0' flush='10'> positions </trajectory>
+      <trajectory filename='xc' stride='10' flush='10'> x_centroid </trajectory>
+      <checkpoint stride='4000'/>
+   </output>
+   <total_steps> 10000 </total_steps>
+   <prng><seed>31415</seed></prng>
+   <ffsocket name='qtip4pf' mode='unix' matching='any' pbc='false'>
+       <address> f1 </address>
+       <latency> 1e-3 </latency> 
+   </ffsocket>
+   <system>
+      <initialize nbeads='1'>
+         <file mode='xyz'> init.xyz </file>
+         <velocities mode='thermal' units='kelvin'> 300 </velocities>
+      </initialize>
+      <forces>
+         <force forcefield ='qtip4pf'> </force>
+      </forces> 
+      <motion mode='dynamics'>
+	 <fixcom> False </fixcom>
+         <dynamics mode='nvt'>
+            <timestep units='femtosecond'> 1.00 </timestep>
+            <thermostat mode='pile_l'>
+                <tau units='femtosecond'> 100 </tau>
+            </thermostat>
+         </dynamics>
+      </motion>
+      <ensemble>
+         <temperature units='kelvin'> 300 </temperature>
+      </ensemble>
+   </system>
+</simulation>
