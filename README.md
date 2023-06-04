@@ -43,7 +43,7 @@ You will have access to `i-pi-driver` executable if you have sourced the `env.sh
 
 Step 4: You can also install the following python packages
 ```sh
-$ pip install -U numpy matplotlib ase chemiscope
+$ python -m pip install -U numpy matplotlib ase chemiscope
 ```
 You can check for successful installation by running the following snippet on python.
 ```py
@@ -52,6 +52,42 @@ import matplotlib.pyplot as plt
 import ase, ase.io
 import chemiscope
 ```
+
+You can check for successful installation by running the following snippet on python.
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+import ase, ase.io
+import chemiscope
+```
+
+Step 5: For the free energy tutorial you will also need plumed2 (version 2.5 is compatible with i-PI). You can follow these instructions.
+
+```sh
+$ git clone -b v2.5 git@github.com:plumed/plumed2.git
+$ cd plumed2
+$ ./configure
+$ make
+```
+This can take up to 15 mins on the noto. 
+
+Remember to source the `sourceme.sh` file. It will add the path to plumed2.5 executables and libraties to releavnt environment variables.
+```sh
+source PLUMED_PATH/sourceme.sh
+```
+
+Now to install the python interface you neeed to 
+```sh
+$ python -m pip install -U plumed==2.5
+```
+
+To check, try the following snippet 
+```
+import plumed
+plumed.Plumed()
+```
+
+Remember the above will work only if you have sourced the plumed `sourceme.sh` file.
 
 ### Cloning the PIQM 2023 tutorial. 
 
