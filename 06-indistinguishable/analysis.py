@@ -11,11 +11,12 @@ def getdZk(k, bhw, dim):
     return -0.5 * k * dim * getZk(k, bhw, dim) * (1 + np.exp(-k * bhw)) / (1 - np.exp(-k * bhw))
 
 
-# Mean energy of n non-interacting bosons (Alg. 4.7 from Krauth, p. 231)
+# Mean energy of n non-interacting particles
 def get_harmonic_energy(n, bhw, dim, ptcl_type='dist'):
     if ptcl_type == 'dist':
         return -n * getdZk(1, bhw, dim) / getZk(1, bhw, dim)
 
+    # Alg. 4.7 from Krauth
     if ptcl_type == 'bosonic':
         z_arr = np.zeros(n + 1)
         dz_arr = np.zeros(n + 1)
@@ -35,25 +36,14 @@ def get_harmonic_energy(n, bhw, dim, ptcl_type='dist'):
 
         return -dz_arr[n] / z_arr[n]
 
-    if ptcl_type == 'fermionic':
-        z_arr = np.zeros(n + 1)
-        dz_arr = np.zeros(n + 1)
-
-        z_arr[0] = 1.0
-
-        for m in range(1, n + 1):
-            sig_z = 0.0
-            sig_dz = 0.0
-
-            for j in range(m, 0, -1):
-                fermion_sign = (-1) ** (j - 1)
-                sig_z += getZk(j, bhw, dim) * z_arr[m - j] * fermion_sign
-                sig_dz += (getdZk(j, bhw, dim) * z_arr[m - j] + getZk(j, bhw, dim) * dz_arr[m - j]) * fermion_sign
-
-            z_arr[m] = sig_z / m
-            dz_arr[m] = sig_dz / m
-
-    return -dz_arr[n] / z_arr[n]
+    if ptcl_type == 'fermionic' and n == 3:
+        # Mean energy for three fermions
+        num = -3 - np.exp(bhw) + 8*np.exp(2*bhw) + 17*np.exp(3*bhw) + 15*np.exp(4*bhw)
+        denom = 2*(-1 - np.exp(bhw) + np.exp(3*bhw) + np.exp(4*bhw))
+        
+        return num/denom
+    
+    return 0
 
 def read_ipi_output(filename):
     """ Reads an i-PI output file and returns a dictionary with the properties in a tidy order. """
