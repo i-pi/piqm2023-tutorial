@@ -64,7 +64,7 @@ import chemiscope
 Step 5: For the free energy tutorial you will also need plumed2 (version 2.5 is compatible with i-PI). You can follow these instructions.
 
 ```sh
-$ git clone -b v2.5 git@github.com:plumed/plumed2.git
+$ git clone -b v2.5 https://github.com/plumed/plumed2.git
 $ cd plumed2
 $ ./configure
 $ make
