@@ -15,7 +15,7 @@ To run this tutorial you simply need to clone this [repository](https://github.c
 
 ## What do you need?
 
-If you want to run the tutorial on your laptop or PC, you will need a unix-based operating system with a `python 3.6` or higher. If you have a windows OS you can use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to setup linux. Alternatively, you can log into the MOOC on [Path Integral Methods in Atomistic Modelling]() and then access the cloud based `noto` interface through one of the chapter exercises or this  [link](https://noto-lti-1.epfl.ch/). Note that sometimes you may have to wait a couple of mins after you log in on the MOOC webpage to access the `noto` interface. 
+If you want to run the tutorial on your laptop or PC, you will need a unix-based operating system with a `python 3.6` or higher. If you have a windows OS you can use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to setup linux. Alternatively, you can log into the MOOC on [Path Integral Methods in Atomistic Modelling](https://tinyurl.com/pimd-mooc) and then access the cloud based `noto` interface through one of the chapter exercises or this  [link](https://noto-lti-1.epfl.ch/). Note that sometimes you may have to wait a couple of mins after you log in on the MOOC webpage to access the `noto` interface. 
 
 # Setup
 
