@@ -11,7 +11,7 @@
   <prng>
     <seed>3241</seed>
   </prng>
-  <ffsocket name='driver' mode='unic' pbc='False'>
+  <ffsocket name='driver' mode='unix' pbc='False'>
     <address> oh-rpmd </address>
     <latency> 1e-10 </latency>
   </ffsocket>
